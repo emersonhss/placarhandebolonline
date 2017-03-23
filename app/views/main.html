@@ -1,0 +1,77 @@
+<div ng-controller="PartidaCtrl as partidaCtrl">
+  <div class="jumbotron" ng-show="!partidaCtrl.visaoPartida">
+    <h1>Placar Handebol Online</h1>
+    <p class="lead">
+      <img src="images/maximus_marca_produtos.png" alt="Placar OnLine de Handebol do Máximus Handebol Clube - Paraíba."><br>
+      Placar online de Handebol do Máximus Handebol Clube - Paraíba.
+    </p>
+    <p><a class="btn btn-lg btn-success" ng-href="" ng-click="partidaCtrl.adicionarNovaPartida()">Nova Partida <span class="glyphicon glyphicon-plus"></span></a></p>
+  </div>
+
+  <div ng-show="partidaCtrl.visaoPartida" class="text-center">
+    <div class="areaCronometro">
+      <p class="cronometro">{{partidaCtrl.cronometro.minutos < 10 ? '0' + partidaCtrl.cronometro.minutos : partidaCtrl.cronometro.minutos}} : {{partidaCtrl.cronometro.segundos < 10 ? '0' + partidaCtrl.cronometro.segundos : partidaCtrl.cronometro.segundos}}</p>
+      <p ng-show="partidaCtrl.cronometro.status === 'parado' || partidaCtrl.cronometro.status === 'zerado'"><a class="btn btn-lg btn-success" ng-href="" ng-click="partidaCtrl.iniciaPartida()">Iniciar Partida <span class="glyphicon glyphicon-play"></span></a></p>
+      <p ng-show="partidaCtrl.cronometro.status === 'iniciado'"><a class="btn btn-lg btn-default" ng-href="" ng-click="partidaCtrl.paraCronometro()">Parar Partida <span class="glyphicon glyphicon-pause"></span></a></p>
+    </div>
+    <div class="row areaEquipe" ng-show="partidaCtrl.partidaIniciada">
+      <div class="col-md-5 text-center">
+        <div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-body text-center">
+            <input type="text" class="nomeEquipe" ng-model="partidaCtrl.equipeA.nome" />
+
+            <p class="gols">{{partidaCtrl.equipeA.gols ? partidaCtrl.equipeA.gols.length : '0'}}</p>
+
+            <a class="btn btn-lg btn-primary" ng-href="" ng-click="partidaCtrl.incrementaGol(partidaCtrl.equipeA)">Gol <span class="glyphicon glyphicon-plus"></span></a>
+          </div>
+        </div>
+        <table class="table" ng-show="partidaCtrl.equipeA.gols">
+          <thead>
+            <tr>
+              <th>Gols</th>
+              <th>Tempo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="gol in partidaCtrl.equipeA.gols">
+              <td>{{$index + 1}}</td>
+              <td>{{gol.minuto < 10 ? '0' + gol.minuto : gol.minuto}}:{{gol.segundo < 10 ? '0' + gol.segundo : gol.segundo}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-2 text-center">
+        <h2>Período</h2>
+        <p>{{partidaCtrl.periodo}}</p>
+
+        <span>X</span>
+      </div>
+      <div class="col-md-5 areaEquipeB">
+        <div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-body text-center">
+            <input type="text" class="nomeEquipe" ng-model="partidaCtrl.equipeB.nome" />
+
+            <p class="gols">{{partidaCtrl.equipeB.gols ? partidaCtrl.equipeB.gols.length : '0'}}</p>
+            <a class="btn btn-lg btn-primary" ng-href="" ng-click="partidaCtrl.incrementaGol(partidaCtrl.equipeB)">Gol <span class="glyphicon glyphicon-plus"></span></a>
+          </div>
+        </div>
+        <table class="table" ng-show="partidaCtrl.equipeB.gols">
+          <thead>
+            <tr>
+              <th>Gols</th>
+              <th>Tempo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="gol in partidaCtrl.equipeB.gols">
+              <td>{{$index + 1}}</td>
+              <td>{{gol.minuto < 10 ? '0' + gol.minuto : gol.minuto}}:{{gol.segundo < 10 ? '0' + gol.segundo : gol.segundo}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
